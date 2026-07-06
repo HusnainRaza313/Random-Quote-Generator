@@ -64,7 +64,9 @@ _Add your GitHub Pages link here_
 
 ## 📸 Screenshot
 
-_Add a screenshot of the application here._
+
+
+![Random-Quote-Generator](qoutes.png)
 
 ---
 
@@ -80,7 +82,7 @@ _Add a screenshot of the application here._
 https://github.com/HusnainRaza313
 
 **LinkedIn:**  
-_Add your LinkedIn profile link here_
+(https://www.linkedin.com/in/muhammad-husnain-raza-523266304)
 
 ---
 
