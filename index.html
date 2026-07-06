@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Quotely &mdash; a modern, responsive Random Quote Generator with glassmorphism design, favorites, search, and dark mode." />
+    <title>Quotely &mdash; Random Quote Generator</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg" />
+
+    <!-- Google Fonts: Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      referrerpolicy="no-referrer"
+    />
+
+    <!-- App styles -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- Animated gradient background -->
+    <div class="bg-gradient" id="bgGradient" aria-hidden="true">
+      <span class="blob blob--1"></span>
+      <span class="blob blob--2"></span>
+      <span class="blob blob--3"></span>
+      <span class="blob blob--4"></span>
+    </div>
+
+    <!-- Loading overlay -->
+    <div class="loader" id="loader" aria-hidden="true">
+      <div class="loader__ring"></div>
+      <p class="loader__text">Loading wisdom&hellip;</p>
+    </div>
+
+    <div class="app" id="app" hidden>
+      <!-- ============ Header ============ -->
+      <header class="topbar">
+        <a class="brand" href="#" aria-label="Quotely home">
+          <span class="brand__mark" aria-hidden="true">
+            <i class="fa-solid fa-quote-left"></i>
+          </span>
+          <span class="brand__name">Quotely</span>
+        </a>
+
+        <button class="icon-btn theme-toggle" id="themeToggle" type="button" aria-label="Toggle dark mode" title="Toggle theme">
+          <i class="fa-solid fa-moon"></i>
+        </button>
+      </header>
+
+      <!-- ============ Hero / main quote card ============ -->
+      <main class="stage">
+        <section class="quote-card glass" id="quoteCard" aria-live="polite">
+          <span class="quote-card__mark" aria-hidden="true">
+            <i class="fa-solid fa-quote-left"></i>
+          </span>
+
+          <blockquote class="quote">
+            <p class="quote__text" id="quoteText">Loading a spark of wisdom&hellip;</p>
+            <footer class="quote__meta">
+              <span class="quote__author" id="quoteAuthor">&mdash;</span>
+              <span class="quote__category" id="quoteCategory"></span>
+            </footer>
+          </blockquote>
+
+          <div class="quote-card__actions">
+            <button class="btn btn--primary ripple" id="newQuoteBtn" type="button">
+              <i class="fa-solid fa-shuffle"></i>
+              <span>New Quote</span>
+            </button>
+            <button class="btn btn--ghost ripple" id="copyBtn" type="button" aria-label="Copy quote" title="Copy quote">
+              <i class="fa-solid fa-copy"></i>
+              <span>Copy</span>
+            </button>
+            <button class="btn btn--ghost ripple" id="shareBtn" type="button" aria-label="Share on X" title="Share on X">
+              <i class="fa-brands fa-x-twitter"></i>
+              <span>Share</span>
+            </button>
+            <button class="btn btn--ghost ripple" id="favBtn" type="button" aria-label="Add to favorites" title="Add to favorites">
+              <i class="fa-regular fa-heart"></i>
+              <span>Favorite</span>
+            </button>
+          </div>
+        </section>
+
+        <p class="hint" id="hint">
+          Press <kbd>Space</kbd> for a new quote
+        </p>
+      </main>
+
+      <!-- ============ Statistics ============ -->
+      <section class="stats glass" aria-label="Statistics">
+        <div class="stat">
+          <span class="stat__icon"><i class="fa-solid fa-quote-left"></i></span>
+          <span class="stat__value" id="statTotal">0</span>
+          <span class="stat__label">Total Quotes</span>
+        </div>
+        <div class="stat">
+          <span class="stat__icon"><i class="fa-solid fa-heart"></i></span>
+          <span class="stat__value" id="statFav">0</span>
+          <span class="stat__label">Favorites</span>
+        </div>
+        <div class="stat">
+          <span class="stat__icon"><i class="fa-solid fa-eye"></i></span>
+          <span class="stat__value" id="statViewed">0</span>
+          <span class="stat__label">Quotes Viewed</span>
+        </div>
+      </section>
+
+      <!-- ============ Search ============ -->
+      <section class="search glass" aria-label="Search quotes">
+        <div class="search__field">
+          <i class="fa-solid fa-magnifying-glass search__icon"></i>
+          <input
+            type="search"
+            id="searchInput"
+            class="search__input"
+            placeholder="Search by keyword or author..."
+            aria-label="Search quotes by keyword or author"
+            autocomplete="off"
+          />
+          <button class="search__clear" id="searchClear" type="button" aria-label="Clear search" hidden>
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+        <p class="search__count" id="searchCount" hidden></p>
+        <div class="search__results" id="searchResults"></div>
+      </section>
+
+      <!-- ============ Favorites ============ -->
+      <section class="favorites" aria-label="Favorite quotes">
+        <div class="section-head">
+          <h2 class="section-head__title">
+            <i class="fa-solid fa-heart"></i> Favorites
+          </h2>
+          <button class="btn btn--tiny ripple" id="clearFavBtn" type="button" hidden>
+            <i class="fa-solid fa-trash"></i> Clear all
+          </button>
+        </div>
+        <div class="favorites__list" id="favList"></div>
+        <p class="favorites__empty" id="favEmpty">
+          <i class="fa-regular fa-heart"></i>
+          No favorites yet. Tap the heart on a quote to save it.
+        </p>
+      </section>
+
+      <!-- ============ Footer ============ -->
+      <footer class="footer">
+        <p>
+          Built with <i class="fa-solid fa-heart" style="color: var(--accent-warm)"></i>
+          using HTML, CSS &amp; Vanilla JS &middot;
+          <a href="#" id="aboutLink">Quotely</a>
+        </p>
+      </footer>
+    </div>
+
+    <!-- Toast notification -->
+    <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+    <script src="quotes.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
