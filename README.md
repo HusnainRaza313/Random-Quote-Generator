@@ -57,7 +57,8 @@ Random-Quote-Generator/
 
 ## 🌐 Live Demo
 
-**GitHub Pages:**  
+**GitHub Pages:** 
+
 https://husnainraza313.github.io/Random-Quote-Generator/
 
 ---
